@@ -25,7 +25,7 @@ class ExchangeRateServiceTest extends TestCase
         $this->exchangeRateService = new ExchangeRateService($this->exchangeRateCacheMock);
     }
 
-    public function test_it_returns_cached_exchange_rate_if_available()
+    public function test_returns_cached_exchange_rate_if_available()
     {
         $this->exchangeRateCacheMock->method('get')->willReturn(1.12);
 
@@ -34,7 +34,7 @@ class ExchangeRateServiceTest extends TestCase
         $this->assertEquals(1.12, $rate);
     }
 
-    public function test_it_fetches_exchange_rate_from_api_if_not_cached()
+    public function test_fetches_exchange_rate_from_api_if_not_cached()
     {
         $this->exchangeRateCacheMock->method('get')->willReturn(null);
 
@@ -49,7 +49,7 @@ class ExchangeRateServiceTest extends TestCase
         $this->assertEquals(1.15, $rate);
     }
 
-    public function test_it_returns_default_value_if_api_fails()
+    public function test_returns_default_value_if_api_fails()
     {
         $this->exchangeRateCacheMock->method('get')->willReturn(null);
 
@@ -64,7 +64,7 @@ class ExchangeRateServiceTest extends TestCase
         $this->assertEquals(1.10, $rate);
     }
 
-    public function test_it_logs_error_when_api_request_fails()
+    public function test_logs_error_when_api_request_fails()
     {
         Log::shouldReceive('error')
             ->once();
@@ -78,7 +78,7 @@ class ExchangeRateServiceTest extends TestCase
         $this->exchangeRateService->get(Currency::DOLLAR, Currency::EURO);
     }
 
-    public function test_it_caches_the_exchange_rate_after_fetching()
+    public function test_caches_the_exchange_rate_after_fetching()
     {
         $this->exchangeRateCacheMock->method('get')->willReturn(null);
         $this->exchangeRateCacheMock->expects($this->once())->method('set')->with(

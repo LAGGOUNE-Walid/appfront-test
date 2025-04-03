@@ -59,7 +59,7 @@ class UpdateProduct extends Command
             $data['description'] = $this->option('description');
         }
         if ($this->option('price')) {
-            $data['price'] = $this->option('price');
+            $data['price'] = (float)$this->option('price');
         }
 
         $rules = [

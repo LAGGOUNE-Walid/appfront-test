@@ -25,7 +25,7 @@ class ProductService
      * @param  UploadedFile|null  $image  An optional image file for the product.
      * @return Product The newly created product instance.
      */
-    public function create(string $name, float $price, string $description, ?UploadedFile $image = null): Product
+    public function create(string $name, float $price, ?string $description = null, ?UploadedFile $image = null): Product
     {
         return $this->createProductAction->execute($name, $price, $description, $image);
     }
@@ -40,7 +40,7 @@ class ProductService
      * @param  UploadedFile|null  $image  An optional new image for the product.
      * @return Product The updated product instance.
      */
-    public function update(Product $product, string $name, float $price, string $description, ?UploadedFile $image = null): Product
+    public function update(Product $product, string $name, float $price, ?string $description = null, ?UploadedFile $image = null): Product
     {
         $oldPrice = $product->price;
         $product = $this->updateProductAction->execute($product, $name, (float) $price, $description, $image);

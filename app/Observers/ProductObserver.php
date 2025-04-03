@@ -14,7 +14,7 @@ class ProductObserver
 
     public function deleted(Product $product): void
     {
-        Cache::forget("product:{$product->id}", $product, now()->addMinutes(10));
+        Cache::forget("product:{$product->id}");
     }
 
     public function updated(Product $product): void

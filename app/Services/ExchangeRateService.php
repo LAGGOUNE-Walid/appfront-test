@@ -24,7 +24,7 @@ class ExchangeRateService
      * @param Currency $from The base currency.
      * @param Currency $to The target currency.
      * @return float The exchange rate from the base currency to the target currency.
-    */
+     */
     public function get(Currency $from, Currency $to): float
     {
         $cachedRate = $this->exchangeRateCacheService->get($from, $to);
@@ -57,7 +57,7 @@ class ExchangeRateService
      * @param Currency $from The base currency.
      * @param Currency $to The target currency.
      * @return float The default exchange rate from the base currency to the target currency.
-    */
+     */
     public function getDefaultValueOf(Currency $from, Currency $to): float
     {
         return config("exchange.defaults.{$from->value}.{$to->value}", 0);

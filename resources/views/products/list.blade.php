@@ -56,7 +56,7 @@
             {{-- todo: modify pagination style --}}
             {{ $products->links() }}
         </div>
-
+        
         <div style="margin-top: 20px; text-align: center; font-size: 0.9rem; color: #7f8c8d;">
             <p>Exchange Rate: 1 USD = {{ number_format($exchangeRate, 4) }} EUR</p>
         </div>

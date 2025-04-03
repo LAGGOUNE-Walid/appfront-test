@@ -34,7 +34,7 @@
             @foreach ($products as $product)
                 <div class="product-card">
                     @if ($product->image)
-                        <img src="{{ env('APP_URL') }}/{{ $product->image }}" class="product-image"
+                        <img src="{{ url($product->image) }}" class="product-image"
                             alt="{{ $product->name }}">
                     @endif
                     <div class="product-info">

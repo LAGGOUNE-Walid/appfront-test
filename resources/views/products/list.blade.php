@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,26 +12,30 @@
             flex-direction: column;
             margin-bottom: 1rem;
         }
+
         .price-usd {
             font-size: 1.5rem;
             font-weight: bold;
             color: #e74c3c;
         }
+
         .price-eur {
             font-size: 1.2rem;
             color: #7f8c8d;
         }
     </style>
 </head>
+
 <body>
     <div class="container">
         <h1>Products</h1>
 
         <div class="products-grid">
-            @forelse ($products as $product)
+            @foreach ($products as $product)
                 <div class="product-card">
                     @if ($product->image)
-                        <img src="{{ env('APP_URL') }}/{{ $product->image }}" class="product-image" alt="{{ $product->name }}">
+                        <img src="{{ env('APP_URL') }}/{{ $product->image }}" class="product-image"
+                            alt="{{ $product->name }}">
                     @endif
                     <div class="product-info">
                         <h2 class="product-title">{{ $product->name }}</h2>
@@ -42,11 +47,14 @@
                         <a href="{{ route('products.show', $product) }}" class="btn btn-primary">View Details</a>
                     </div>
                 </div>
-            @empty
+            @endforeach
+            @if (empty($products))
                 <div class="empty-message">
                     <p>No products found.</p>
                 </div>
-            @endforelse
+            @endif
+            {{-- todo: modify pagination style --}}
+            {{ $products->links() }}
         </div>
 
         <div style="margin-top: 20px; text-align: center; font-size: 0.9rem; color: #7f8c8d;">
@@ -54,4 +62,5 @@
         </div>
     </div>
 </body>
+
 </html>

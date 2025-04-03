@@ -16,7 +16,7 @@ class UpdateProductAction
             'name' => $name,
             'price' => $price,
             'description' => $description,
-            'image' => $this->upload($image),
+            'image' => ($image) ? $this->upload($image) : $product->image,
         ]);
 
         return $product;

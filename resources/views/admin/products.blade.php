@@ -90,9 +90,15 @@
                         <td>{{ $product->name }}</td>
                         <td>${{ number_format($product->price, 2) }}</td>
                         <td>
-                            <a href="{{ route('admin.edit.product', $product->id) }}" class="btn btn-primary">Edit</a>
-                            <a href="{{ route('admin.delete.product', $product->id) }}" class="btn btn-secondary"
-                                onclick="return confirm('Are you sure you want to delete this product?')">Delete</a>
+
+                            <form action="{{ route('admin.delete.product', $product->id) }}" method="post">
+                                <a href="{{ route('admin.edit.product', $product->id) }}"
+                                    class="btn btn-primary">Edit</a>
+                                @csrf
+                                <input type="hidden" name="_method" value="delete" />
+                                <button type="submit" class="btn btn-secondary"
+                                    onclick="return confirm('Are you sure you want to delete this product?')">Delete</button>
+                            </form>
                         </td>
                     </tr>
                 @endforeach

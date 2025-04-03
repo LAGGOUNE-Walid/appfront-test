@@ -21,8 +21,8 @@ class ExchangeRateService
      * If the API request fails, it logs the error and returns a default value.
      * The fetched rate is then cached for future use.
      *
-     * @param Currency $from The base currency.
-     * @param Currency $to The target currency.
+     * @param  Currency  $from  The base currency.
+     * @param  Currency  $to  The target currency.
      * @return float The exchange rate from the base currency to the target currency.
      */
     public function get(Currency $from, Currency $to): float
@@ -32,7 +32,7 @@ class ExchangeRateService
             return $cachedRate;
         }
 
-        $response = Http::timeout(config('exchange.timeout'))->get(config('exchange.endpoint') . $from->value);
+        $response = Http::timeout(config('exchange.timeout'))->get(config('exchange.endpoint').$from->value);
 
         if ($response->failed()) {
             $this->logError($from, $to, $response);
@@ -49,13 +49,14 @@ class ExchangeRateService
             $this->exchangeRateCacheService->set($from, $to, $rate);
         });
     }
+
     /**
      * Retrieves the default exchange rate between two currencies.
      *
      * This method gets the default exchange rate from the config file
      *
-     * @param Currency $from The base currency.
-     * @param Currency $to The target currency.
+     * @param  Currency  $from  The base currency.
+     * @param  Currency  $to  The target currency.
      * @return float The default exchange rate from the base currency to the target currency.
      */
     public function getDefaultValueOf(Currency $from, Currency $to): float

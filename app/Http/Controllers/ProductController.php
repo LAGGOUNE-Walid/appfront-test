@@ -14,19 +14,19 @@ class ProductController extends Controller
         private ExchangeRateService $exchangeRateService
     ) {}
 
-    public function index() : View
+    public function index(): View
     {
         return view('products.list', [
-            "products" => Product::paginate(12),
-            "exchangeRate" => $this->exchangeRateService->get(from: Currency::DOLLAR, to: Currency::EURO)
+            'products' => Product::paginate(12),
+            'exchangeRate' => $this->exchangeRateService->get(from: Currency::DOLLAR, to: Currency::EURO),
         ]);
     }
 
     public function show(Request $request): View
     {
         return view('products.show', [
-            "product" => Product::cachedFindOrFail($request->route('product_id')),
-            "exchangeRate" => $this->exchangeRateService->get(from: Currency::DOLLAR, to: Currency::EURO)
+            'product' => Product::cachedFindOrFail($request->route('product_id')),
+            'exchangeRate' => $this->exchangeRateService->get(from: Currency::DOLLAR, to: Currency::EURO),
         ]);
     }
 }

@@ -2,11 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Support\Facades\Cache;
+use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Cache;
 
 class Product extends Model
 {
+    use HasFactory;
+
     protected $guarded = ['id'];
 
     public static function cachedFindOrFail(int $id): self
@@ -15,5 +18,4 @@ class Product extends Model
             return self::findOrFail($id);
         });
     }
-
 }

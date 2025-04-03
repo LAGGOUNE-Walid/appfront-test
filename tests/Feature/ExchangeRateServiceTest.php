@@ -1,18 +1,19 @@
 <?php
+
 namespace Tests\Feature;
 
 use App\Enums\Currency;
 use App\Services\ExchangeRateCacheService;
 use App\Services\ExchangeRateService;
+use Illuminate\Support\Facades\Config;
 use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Facades\Config;
-use Illuminate\Support\Facades\Cache;
 use Tests\TestCase;
 
 class ExchangeRateServiceTest extends TestCase
 {
     protected ExchangeRateService $exchangeRateService;
+
     protected $exchangeRateCacheMock;
 
     protected function setUp(): void
@@ -20,7 +21,7 @@ class ExchangeRateServiceTest extends TestCase
         parent::setUp();
 
         $this->exchangeRateCacheMock = $this->createMock(ExchangeRateCacheService::class);
-        
+
         $this->exchangeRateService = new ExchangeRateService($this->exchangeRateCacheMock);
     }
 
@@ -38,9 +39,9 @@ class ExchangeRateServiceTest extends TestCase
         $this->exchangeRateCacheMock->method('get')->willReturn(null);
 
         Http::fake([
-            config("exchange.endpoint")."*" => Http::response([
+            config('exchange.endpoint').'*' => Http::response([
                 'rates' => ['EUR' => 1.15],
-            ], 200)
+            ], 200),
         ]);
 
         $rate = $this->exchangeRateService->get(Currency::DOLLAR, Currency::EURO);
@@ -53,7 +54,7 @@ class ExchangeRateServiceTest extends TestCase
         $this->exchangeRateCacheMock->method('get')->willReturn(null);
 
         Http::fake([
-            config("exchange.endpoint")."*" => Http::response([], 500)
+            config('exchange.endpoint').'*' => Http::response([], 500),
         ]);
 
         Config::set('exchange.defaults.USD.EUR', 1.10);
@@ -71,7 +72,7 @@ class ExchangeRateServiceTest extends TestCase
         $this->exchangeRateCacheMock->method('get')->willReturn(null);
 
         Http::fake([
-            config("exchange.endpoint")."*" => Http::response([], 500)
+            config('exchange.endpoint').'*' => Http::response([], 500),
         ]);
 
         $this->exchangeRateService->get(Currency::DOLLAR, Currency::EURO);
@@ -85,9 +86,9 @@ class ExchangeRateServiceTest extends TestCase
         );
 
         Http::fake([
-            config("exchange.endpoint")."*" => Http::response([
+            config('exchange.endpoint').'*' => Http::response([
                 'rates' => ['EUR' => 1.20],
-            ], 200)
+            ], 200),
         ]);
 
         $rate = $this->exchangeRateService->get(Currency::DOLLAR, Currency::EURO);

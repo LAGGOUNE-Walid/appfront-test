@@ -12,6 +12,13 @@ class Product extends Model
 
     protected $guarded = ['id'];
 
+    protected $fillable = [
+        'name',
+        'price',
+        'description',
+        'image',
+    ];
+
     public static function cachedFindOrFail(int $id): self
     {
         return Cache::remember("product:{$id}", now()->addMinutes(10), function () use ($id) {

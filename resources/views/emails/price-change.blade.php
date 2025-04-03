@@ -48,7 +48,7 @@
 
         <p>We wanted to inform you that the price of the following product has been updated:</p>
 
-        <h3>{{ $product->name }}</h3>
+        <h3>{{ $name }}</h3>
 
         <div class="price-change">
             <p><strong>Old Price:</strong> <span class="old-price">${{ number_format($oldPrice, 2) }}</span></p>
